@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1 = "Actor"
+    p Actor: #{actor.first_name} #{actor.last_name}
+    br
+    p Updated: #{actor.last_update}
+    ul
+        each film in actor.films
+            - var query = "film_id=" + film.film_id
+            li #{film.title} #{film.description} #{film.release_year}
+                a(href="films?" + query)
+                    button(type="button") Film details...

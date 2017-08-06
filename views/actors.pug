@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1 Actors
+    h2 List of Actors
+    table#actors.table.table-hover.table-striped.table-bordered
+        thead.thead-inverse
+            td
+            td First Name
+            td Last Name
+            td Select...
+        tbody
+            each actor, index in actors
+                - var query = "first_name=" + actor.first_name + "&last_name=" + actor.last_name
+                tr
+                    td #{index}
+                    td #{actor.first_name}
+                    td #{actor.last_name}
+                    td
+                        a(href="actors?" + query)
+                            button(type="button") Details...

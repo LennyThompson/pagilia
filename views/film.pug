@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1 #{film.title}
+    h2 #{film.description}
+    p #{film.release_year}
+    p #{film.rating}
+    a(href="films?" + query)
+        button(type="button") Rent

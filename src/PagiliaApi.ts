@@ -4,6 +4,8 @@ import {Pool} from "pg";
 import * as lodash from "lodash";
 import {ActorsView} from "./pagilia-views/actors";
 import {ActorView} from "./pagilia-views/actor";
+import {FilmsView} from "./pagilia-views/films";
+import {FilmView} from "./pagilia-views/film";
 
 export interface IFilmBase
 {
@@ -86,11 +88,26 @@ export class PagiliaApi
         router.get("/films",
             (request, response, next) =>
             {
-                this.getFilms()
-                    .then(
-                        items => response.send(items)
-                    )
-                    .catch(error => response.send(error));
+                if
+                (
+                    lodash(request.query).isNull()
+                    ||
+                    lodash(request.query).isEmpty()
+                )
+                {
+                    this.getFilms()
+                        .then(
+                            items => new FilmsView(items).render(request, response, "films")
+                        )
+                        .catch(error => response.send(error));
+                }
+                else
+                {
+                    console.log("Getting film " + request.query.film_id);
+                    this.getFilm(request.query.film_id)
+                        .then(film => new FilmView(film).render(request, response, "film"))
+                        .catch(error => response.send(error));
+                }
             }
         );
     }
@@ -173,7 +190,30 @@ export class PagiliaApi
                 this.pagiliaDb.query("select * from film;")
                     .then(films =>
                         {
-                            resolve(films);
+                            resolve(films.rows);
+                        }
+                    )
+                    .catch(error =>
+                        {
+                            reject(error);
+                        }
+                    );
+            }
+        );
+    }
+
+    private getFilm(filmId: number): when.Promise<any>
+    {
+        return when.promise(
+            (resolve, reject) =>
+            {
+                let queryTemplate = lodash.template("select * from film where film_id = ${id};");
+
+                this.pagiliaDb.query(queryTemplate({id: filmId}))
+                    .then(film =>
+                        {
+                            console.log(film.rows[0]);
+                            resolve(film.rows[0]);
                         }
                     )
                     .catch(error =>

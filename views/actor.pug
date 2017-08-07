@@ -1,13 +1,23 @@
 extends layout
 
 block content
-    h1 = "Actor"
-    p Actor: #{actor.first_name} #{actor.last_name}
-    br
-    p Updated: #{actor.last_update}
-    ul
-        each film in actor.films
-            - var query = "film_id=" + film.film_id
-            li #{film.title} #{film.description} #{film.release_year}
-                a(href="films?" + query)
-                    button(type="button") Film details...
+    h1 Actor: #{actor.first_name} #{actor.last_name}
+    | Updated: #{actor.last_update}
+    table#films.table.table-hover.table-striped.table-bordered
+        thead.thead-default
+            tr
+                th
+                th Title
+                th Description
+                th Released
+                th
+        tbody
+            each film, index in actor.films
+                    - var query = "film_id=" + film.film_id
+                    tr
+                        td #{index + 1}
+                        td #{film.title}
+                        td #{film.description}
+                        td #{film.release_year}
+                        td
+                            a(href="films?" + query) Film details...

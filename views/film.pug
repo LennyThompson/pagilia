@@ -1,9 +1,10 @@
 extends layout
 
 block content
+    include rent-film-form
     h1 #{film.title}
     h2 #{film.description}
     p #{film.release_year}
     p #{film.rating}
-    a(href="films?" + query)
+    a(href="#rent-popup")
         button(type="button") Rent

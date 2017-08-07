@@ -3,8 +3,8 @@ extends layout
 block content
     h1 Actor: #{actor.first_name} #{actor.last_name}
     | Updated: #{actor.last_update}
-    table#films.table.table-hover.table-striped.table-bordered
-        thead.thead-default
+    table#films.pure-table.pure-table-bordered.pure-table-striped
+        thead
             tr
                 th
                 th Title

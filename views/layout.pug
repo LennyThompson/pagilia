@@ -2,22 +2,24 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/pure/pure.min.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel='stylesheet', href='/pure/pure-min.css')
+    link(rel='stylesheet', href='/pure/grids-responsive-min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
   body
-    div.container
-      nav.navbar.navbar-default
-        .container-fluid
-          .navbar-header
-            button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
-              span.sr-only Toggle navigation
-              span.icon-bar
-            a.navbar-brand(href="films") Home
-          #navbar.collapse.navbar-collapse
-            ul.nav.navbar-nav
-              li
-                a(href="films") Films
-              li
-                a(href="actors") Actors
-  block content
+    .header
+      .home-menu.pure-menu.pure-menu-horizontal.pure-menu-fixed
+        a.pure-menu-heading.pure-menu-link(href="api/films") Home
+        ul.pure-menu-list
+          li.pure-menu-item
+            a.pure-menu-link(href="films") Films
+          li.pure-menu-item
+            a.pure-menu-link(href="actors") Actors
+    #layout.pure-g
+      .sidebar.pure-u-1.pure-u-md-1-4
+        .header
+          h1.brand-title Movie Search
+          h2.brand-tagline Search for movies to rent
+      .content.pure-u-1.pure-u-md-3-4
+        block content

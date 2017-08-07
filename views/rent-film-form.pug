@@ -1,0 +1,9 @@
+#rent-popup.overlay
+        .popup
+            h2 Fill in Rental Form
+            form(action="api/rent-movie" method="POST")
+                fieldset
+                    legend Enter rental duration
+                    labal(for="duration")
+                        input(type="number" id="duration" name="duration")
+                    button.close.pure-button.pure-button-primary(type="submit" value="Submit")

@@ -3,8 +3,8 @@ extends layout
 block content
     h1 Films
     h2 List of Films
-    table#actors.table.table-hover.table-striped.table-bordered
-        thead.thead-default
+    table#actors.pure-table.pure-table-bordered
+        thead
             tr
                 th
                 th Title
@@ -15,11 +15,9 @@ block content
         tbody
             each film, index in films
                 - var query = "film_id=" + film.film_id
-                tr
-                    td #{index + 1}
-                    td #{film.title}
-                    td #{film.description}
-                    td #{film.release_year}
-                    td #{film.rating}
-                    td
-                        a(href="films?" + query) Details..
+                if index % 2
+                    tr.pure-table-odd
+                        include film-row-item
+                else
+                    tr
+                        include film-row-item
